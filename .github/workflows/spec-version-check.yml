@@ -1,0 +1,62 @@
+name: spec-version-check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  require-version-bump-note:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect spec/conformance changes
+        id: changed
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1 || true
+          BASE="${{ github.event.pull_request.base.sha }}"
+          if git diff --name-only "$BASE"...HEAD | grep -E '^(specs/|conformance/|VERSIONING\.md|GOVERNANCE\.md)' > /tmp/spec_changes.txt; then
+            echo "spec_changed=true" >> "$GITHUB_OUTPUT"
+            cat /tmp/spec_changes.txt
+          else
+            echo "spec_changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Require version-bump note in PR body
+        if: steps.changed.outputs.spec_changed == 'true'
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if ! printf '%s' "$PR_BODY" | grep -E 'VERSION-BUMP: (major|minor|patch) — .+'; then
+            echo "::error::PR changes spec/conformance files but the PR body lacks a 'VERSION-BUMP: major|minor|patch — <reason>' note (see VERSIONING.md)."
+            exit 1
+          fi
+
+      - name: Gate-loosening heuristic check
+        if: steps.changed.outputs.spec_changed == 'true'
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          # Flag deletions of normative gate lines without a replacement note.
+          if git diff "$BASE"...HEAD -- specs/qualification/ conformance/ | grep -E '^-' | grep -vE '^---' | grep -qiE 'MUST|never|gate'; then
+            if ! printf '%s' "${{ github.event.pull_request.body }}" | grep -q 'STRICTLY-STRONGER-JUSTIFICATION:'; then
+              echo "::error::Normative gate text removed or modified. Add 'STRICTLY-STRONGER-JUSTIFICATION:' with mutation-verified evidence per GOVERNANCE.md."
+              exit 1
+            fi
+          fi
+
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run conformance suite
+        working-directory: conformance
+        run: python3 -m unittest test_conformance_positive test_conformance_negative -v
