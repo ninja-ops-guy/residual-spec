@@ -1,0 +1,35 @@
+LOOSENING DEMONSTRATION (visible-signal property)
+Captured 2026-09-18T22:13:08Z — scratch copy of lane/4-gate-enforcement; the loosened copy is NOT committed.
+
+Control: unmodified tree — negative tests + integrity report
+Ran 13 tests in 0.002s
+
+OK
+integrity exit=0
+
+=== Loosening 1: remove required flag zero_test_edits from G0 definition ===
+--- enforcement/negative_tests: test_G0_fails_when_tests_were_edited ---
+AssertionError: 'PASS' != 'FAIL'
+- PASS
++ FAIL
+ : G0 MUST fail on this configuration
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+--- gate_integrity_report.py ---
+      "status": "DRIFT"
+    "DRIFT: G0 current gate_hash 7d11dad39a720d5c... != log 774c665c2ad1bec4..."
+  "verdict": "FAIL"
+integrity exit=1
+
+=== Loosening 2 (cumulative): evaluator coerces UNKNOWN to PASS ===
+ : G0/contract_suite_green=UNKNOWN must never PASS
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)
+
+RESULT: both loosenings are caught — the targeted negative test fails AND the integrity report flags DRIFT (exit 1).
