@@ -1,0 +1,51 @@
+{
+  "gate_set_hash_current": "1b432a1ec06a55af39d55e8a7a2e07ef361947dd3b00fd4267233fa608b26f62",
+  "gates": {
+    "G0": {
+      "current_hash": "774c665c2ad1bec42bdb8c05dd9eaf01f7b30145b91aaecc4308ddf11812c436",
+      "logged_hash": "774c665c2ad1bec42bdb8c05dd9eaf01f7b30145b91aaecc4308ddf11812c436",
+      "status": "OK"
+    },
+    "G1": {
+      "current_hash": "90596a3a0b5eb9e9251ea250a6efeff01dcce6ce464b51458a8f50b7318726f3",
+      "logged_hash": "90596a3a0b5eb9e9251ea250a6efeff01dcce6ce464b51458a8f50b7318726f3",
+      "status": "OK"
+    },
+    "G2": {
+      "current_hash": "2bc91efd736696c11762b64e04c70c4d350294669fa395e626a60f082c577d5e",
+      "logged_hash": "2bc91efd736696c11762b64e04c70c4d350294669fa395e626a60f082c577d5e",
+      "status": "OK"
+    },
+    "G3": {
+      "current_hash": "e72059fad35bbe11894caaf6b8b37423d32f07fcd358ee270b66abe89b34ad04",
+      "logged_hash": "e72059fad35bbe11894caaf6b8b37423d32f07fcd358ee270b66abe89b34ad04",
+      "status": "OK"
+    },
+    "G4": {
+      "current_hash": "242c241628f24d7ae58530fb9b14ea07679af67c6207f4e5c2808793e24615e1",
+      "logged_hash": "242c241628f24d7ae58530fb9b14ea07679af67c6207f4e5c2808793e24615e1",
+      "status": "OK"
+    },
+    "G5": {
+      "current_hash": "9cab3fe9b645d979602607693bbb90b0666a26515463bc330fdb8f0286fb50df",
+      "logged_hash": "9cab3fe9b645d979602607693bbb90b0666a26515463bc330fdb8f0286fb50df",
+      "status": "OK"
+    },
+    "G6": {
+      "current_hash": "24b3bbb508786955c7fba52d1fa9fd4a129a645178b7a470b035aab31ad556de",
+      "logged_hash": "24b3bbb508786955c7fba52d1fa9fd4a129a645178b7a470b035aab31ad556de",
+      "status": "OK"
+    },
+    "G7": {
+      "current_hash": "bc2b721ccf99fc2d320c30b4ccbf2d54184a00de87157457784031ab87641806",
+      "logged_hash": "bc2b721ccf99fc2d320c30b4ccbf2d54184a00de87157457784031ab87641806",
+      "status": "OK"
+    }
+  },
+  "log_entries": 8,
+  "log_head_hash": "6c913dbd41b0f28cebcc47fe919c8f569ae7975ddf15c8f858156145af4689b4",
+  "problems": [],
+  "report": "gate-integrity",
+  "spec_repo": "ninja-ops-guy/residual-spec",
+  "verdict": "PASS"
+}
