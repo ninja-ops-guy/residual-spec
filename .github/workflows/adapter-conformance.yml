@@ -1,0 +1,8 @@
+name: adapter-conformance
+on: [push, pull_request]
+jobs:
+  suite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cd conformance/adapters && python3 -m unittest adapter_conformance_suite -v
