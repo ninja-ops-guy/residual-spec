@@ -1,0 +1,18 @@
+name: gate-integrity
+on:
+  push:
+  pull_request:
+jobs:
+  gate-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Gate integrity report (drift tripwire)
+        run: python3 enforcement/gate_integrity_report.py
+      - name: Gate-level negative tests (G0-G7 must-fail configurations)
+        run: cd enforcement/negative_tests && python3 -m unittest
+      - name: Conformance suite (Lane 3 positive + negative)
+        run: cd conformance && python3 -m unittest test_conformance_positive test_conformance_negative
