@@ -91,7 +91,7 @@ cd conformance && python3 -m unittest test_conformance_positive test_conformance
 
 - It does not prevent a maintainer with write access from rewriting history;
   it makes any such act detectable by any outsider via the hash chain, the
-  blob manifests, and the CAS ledger binding (`GOVERNANCE.md` rule 6: no
+  blob manifests, and the CAS ledger binding (GOVERNANCE.md rule 6: no
   single maintainer is a point of trust).
 - The negative tests and evaluator currently run against the spec-layer
   reference definitions, not the live `residual-agent-harness`
